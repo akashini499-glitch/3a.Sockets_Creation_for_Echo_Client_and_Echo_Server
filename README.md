@@ -9,7 +9,56 @@ Sockets Links.
  server .
 4. Send and receive the message using the send function in socket.
 ## PROGRAM
+## CLIENT
+```
+import socket 
+s = socket.socket() 
+host = socket.gethostname() 
+port = 60000 
+s.connect((host, port)) 
+s.send("Hello server!".encode()) 
+with open('received_file', 'wb') as f: 
+while True: 
+print('receiving data...') 
+data = s.recv(1024) 
+print('data=%s', (data)) 
+if not data: 
+break 
+f.write(data) 
+f.close() 
+print('Successfully get the file') 
+s.close() 
+print('connection closed')
+```
+## SERVER
+```
+import socket 
+port = 60000 
+s = socket.socket() 
+host = socket.gethostname() 
+s.bind((host, port))
+s.listen(5) 
+while True: 
+conn, addr = s.accept() data = 
+conn.recv(1024) print('Server 
+received', repr(data)) 
+filename='mytext.txt' 
+f = open(filename,'rb') 
+l = f.read(1024) 
+while (l): 
+conn.send(l) 
+print('Sent 
+',repr(l)) l = 
+f.read(1024) 
+f.close() 
+print('Done sending') 
+conn.send('Thank you for connecting'.encode()) 
+conn.clo
+se()
+```
 ## OUPUT
+<img width="1918" height="1017" alt="Screenshot 2026-05-21 114804" src="https://github.com/user-attachments/assets/6219ab77-9031-4e36-8e51-bf22f70bb754" />
+
 ## RESULT
 Thus, the python program for creating Echo Client and Echo Server using TCP Sockets Links 
 was successfully created and executed.
